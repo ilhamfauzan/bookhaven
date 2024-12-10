@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Book;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -130,7 +131,10 @@ class BookController extends Controller
 
     // Hapus gambar jika ada
     if ($book->image_url) {
-        Storage::delete('public/' . $book->image_url);
+        $image_path = storage_path('app/public/' . $book->image_url);
+        if (File::exists($image_path)) {
+            File::delete($image_path);
+        }
     }
 
     $book->delete(); // Hapus buku dari database

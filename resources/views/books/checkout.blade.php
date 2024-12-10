@@ -27,20 +27,17 @@
                             @csrf
                             @method('PUT')
                             <div class="grid grid-cols-1 gap-3">
-                                <label for="nama" class="block text-sm font-medium text-gray-700">Name</label>
-                                <input type="text" name="nama" id="nama" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ Auth::user()->name }}" required>
+                                <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                                <input type="text" name="name" id="name" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ Auth::user()->name }}" required>
 
-                                <label for="no_hp" class="block text-sm font-medium text-gray-700">Phone Number</label>
-                                <input type="text" name="no_hp" id="no_hp" class=" block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
+                                <input type="text" name="phone" id="phone" class=" block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="{{ Auth::user()->phone }}" required>
 
-                                <label for="alamat" class="block text-sm font-medium text-gray-700">Address</label>
-                                <textarea name="alamat" id="alamat" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required></textarea>
-
-                                <label for="kode_pos" class="block text-sm font-medium text-gray-700">Postal Code</label>
-                                <input type="text" name="kode_pos" id="kode_pos" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
-
-                                <label for="metode_pembayaran" class="block text-sm font-medium text-gray-700">Payment Method</label>
-                                <select name="metode_pembayaran" id="metode_pembayaran" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                <label for="address" class="block text-sm font-medium text-gray-700">Shipping Address</label>
+                                <textarea name="address" id="address" rows="3" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>{{ Auth::user()->address }}</textarea>
+                                
+                                <label for="payment_method" class="block text-sm font-medium text-gray-700">Payment Method</label>
+                                <select name="payment_method" id="payment_method" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                     <option value="">-- Choose Payment Method --</option>
                                     <option value="" disabled>-- Digital Payment --</option>
                                     <option value="Transfer">Transfer</option>
@@ -51,8 +48,8 @@
                                     <option value="Cash">Cash (Pay in Store)</option>
                                 </select>
 
-                                <label for="tempat_pengambilan" class="block text-sm font-medium text-gray-700">Pickup Location</label>
-                                <select name="tempat_pengambilan" id="tempat_pengambilan" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
+                                <label for="pickup_location" class="block text-sm font-medium text-gray-700">Pickup Location</label>
+                                <select name="pickup_location" id="pickup_location" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                     <option value="">-- Select Pickup Location --</option>
                                     <option value="jakarta">Jakarta Store (Grand Indonesia, Jl. M.H. Thamrin No.1, Kb. Sirih, Kec. Menteng, Kota Jakarta Pusat, Daerah Khusus Ibukota Jakarta 10310)</option>
                                     <option value="bandung">Bandung (Paris Van Java Mall, Jl. Sukajadi No.137-139, Sukajadi, Kec. Sukajadi, Kota Bandung, Jawa Barat 40162)</option>

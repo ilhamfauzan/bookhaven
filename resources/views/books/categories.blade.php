@@ -6,7 +6,7 @@
         <button 
     class="bg-white text-grey py-2 px-6 rounded-full shadow-lg transform transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
     onclick="scrollToCategory('{{ $book->category }}')">
-    {{ $book->category }}
+    {{ Str::limit($book->category, 13) }}
 </button>
         @endforeach
     </div>

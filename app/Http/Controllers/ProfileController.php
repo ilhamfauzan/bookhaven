@@ -32,6 +32,9 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
+        $request->user()->phone = $request->input('phone');
+        $request->user()->address = $request->input('address');
+
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');

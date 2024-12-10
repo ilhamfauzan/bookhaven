@@ -15,12 +15,12 @@
                         <!-- Card Image (left side) -->
                         <div class="border rounded-lg p-8 shadow-sm">
                             <!-- Image Preview -->
-                            <label for="image_url" class="block text-sm font-medium text-gray-700">Book Cover</label>
-                            <div class="flex items-center justify-center w-2/3 mb-8">
+                            <label for="image_url" class=" justify-center flex block text-lg font-medium text-gray-700 mb-5">Book Cover</label>
+                            <div class="sm:w-3/3 flex justify-center mb-8 sm:mb-0">
                                 <!-- Jika sudah ada gambar, tampilkan gambar yang ada -->
-                                <img id="image_preview" class="w-full h-80 object-cover rounded-md border border-gray-300 shadow-sm" alt="Image Preview" src="{{ $book->image_url ? asset('storage/' . $book->image_url) : 'https://placehold.co/170x320' }}">
+                                <img src="{{ asset('storage/' . $book->image_url) }}" alt="Cover image of {{ $book->title }}" class="w-[380px] h-[400px] sm:w-64 object-cover rounded-lg shadow-md">
                             </div>
-                            <input type="file" name="image_url" id="image_url" class="mt-1 block w-2/3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" accept="image/*" onchange="previewImage(event)" style="padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #e5e7eb; background-color: #f9fafb; color: #6b7280; transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);" required>
+                            <input type="file" name="image_url" id="image_url" class="mt-5 mx-auto justify-center flex block w-2/3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" accept="image/*" onchange="previewImage(event)" style="padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #e5e7eb; background-color: #f9fafb; color: #6b7280; transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);" required>
                         </div>
 
                         <!-- Input Fields (right side) -->

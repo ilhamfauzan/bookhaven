@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/books/{slug}', [BookController::class, 'update'])->name('books.update');
     Route::delete('/books/{slug}', [BookController::class, 'destroy'])->name('books.destroy');
     // checkout
-    Route::put('/books{slug}/checkout', [BookController::class, 'showCheckout'])->name('books.checkout');
+    Route::put('/books/{slug}/checkout', [BookController::class, 'showCheckout'])->name('books.checkout');
 
 });
 

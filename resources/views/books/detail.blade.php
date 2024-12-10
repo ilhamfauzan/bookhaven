@@ -10,7 +10,7 @@
             <div class="flex flex-col sm:flex-row gap-4 sm:gap-8">
                 <!-- Menampilkan Gambar Buku -->
                 <div class="sm:w-1/3 flex justify-center mb-8 sm:mb-0">
-                    <img src="{{ asset('storage/' . $book->image_url) }}" alt="Cover image of {{ $book->title }}" class="w-full sm:w-64 h-auto object-cover rounded-lg shadow-md">
+                    <img src="{{ asset('storage/' . $book->image_url) }}" alt="Cover image of {{ $book->title }}" class="w-[380px] h-[400px] sm:w-64 object-cover rounded-lg shadow-md">
                 </div>
 
                 <!-- Informasi Buku -->
