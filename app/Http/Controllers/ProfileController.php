@@ -34,6 +34,7 @@ class ProfileController extends Controller
 
         $request->user()->phone = $request->input('phone');
         $request->user()->address = $request->input('address');
+        $request->user()->username = $request->input('username');
 
         $request->user()->save();
 
