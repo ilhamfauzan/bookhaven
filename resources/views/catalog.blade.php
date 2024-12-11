@@ -33,6 +33,7 @@
                     }
                 </script>
             @endif
+            
         @include('books.latest')
 
         @include('books.categories')

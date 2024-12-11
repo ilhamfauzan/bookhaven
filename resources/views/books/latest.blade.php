@@ -2,10 +2,8 @@
     <h2 class="text-2xl font-bold tracking-tight text-gray-900 mb-8">Latest Books</h2>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        @foreach($books as $book)
-        {{-- @dd($book->image_url) --}}
+        @forelse($books as $book)
             <a href="{{ route('books.detail', $book->slug) }}" class="bg-white rounded-lg shadow-md overflow-hidden transform transition-all hover:scale-105 hover:shadow-lg">
-                <!-- Gambar diperbesar sedikit dan dikurangi tingginya 280x435-->
                 <img src="{{ asset('storage/' . $book->image_url) }}" alt="Cover image of {{ $book->title }}" class="w-full h-[435px] object-cover">
 
                 <div class="p-4 space-y-3">
@@ -18,11 +16,13 @@
                         <span class="text-sm text-gray-500">Stock: {{ $book->stock }}</span>
                     </div>
                     
-                    <div class="mt-2">
+                    {{-- <div class="mt-2">
                         
-                    </div>
+                    </div> --}}
                 </div>
             </a>
-        @endforeach
+        @empty
+            <p class="text-center text-gray-500 w-full">No books available in the catalog.</p>
+        @endforelse
     </div>
 </div>
