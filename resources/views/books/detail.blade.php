@@ -24,10 +24,11 @@
                         <span class="mt-2 text-sm text-gray-600">{!! nl2br(e($book->description)) !!}</span>
                     </div>
                     
-                    <div class="mt-4">
+                    <br><hr>
+                    {{-- <div class="mt-4">
                         <span class="text-lg font-semibold text-gray-900">Rp{{ number_format($book->price, 0, ',', '.') }}</span>
                         <p class="mt-2 text-sm text-gray-600">Stock: {{ $book->stock }}</p>
-                    </div>
+                    </div> --}}
 
                     
                 </div>
@@ -35,6 +36,10 @@
                 <div class="sm:w-1/3">
                     <!-- Tombol Beli -->
                     <div class="mt-8 bg-gray-50 p-4 rounded-lg shadow-lg">
+                        <div class="flex flex-col space-y-2 mb-5">
+                            <span class="text-2xl font-bold text-gray-800">Rp{{ number_format($book->price, 0, ',', '.') }},-</span>
+                            <p class="text-base text-gray-500">Stock: {{ $book->stock }}</p>
+                        </div>
                         <form action="{{ route('books.checkout', $book->slug) }}" method="POST">
                             @csrf
                             @method('PUT')
