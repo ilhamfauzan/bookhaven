@@ -8,6 +8,8 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -22,14 +24,39 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle an incoming authentication request.
      */
-    public function store(LoginRequest $request): RedirectResponse
-    {
-        $request->authenticate();
+    public function store(Request $request): RedirectResponse
+{
+    // Validasi login (email atau username)
+    $request->validate([
+        'login' => ['required', 'string'],
+        'password' => ['required', 'string'],
+    ]);
 
+    $login = $request->input('login');
+
+    // Tentukan apakah login menggunakan email atau username
+    $user = filter_var($login, FILTER_VALIDATE_EMAIL)
+        ? User::where('email', $login)->first()
+        : User::where('username', $login)->first();
+
+    // Cek apakah user ditemukan dan password cocok
+    if ($user && Hash::check($request->password, $user->password)) {
+        Auth::login($user);
+
+        // Regenerasi session untuk keamanan
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Redirect ke halaman dashboard atau halaman yang diinginkan
+        return redirect()->intended(route('dashboard'));
     }
+
+    // Jika login gagal
+    return back()->withErrors([
+        'login' => 'The provided credentials do not match our records.',
+    ]);
+}
+
+
 
     /**
      * Destroy an authenticated session.

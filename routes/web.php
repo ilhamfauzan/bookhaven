@@ -4,11 +4,14 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
 // Route::get('/', function () {
 //     return view('welcome');
 // });
 Route::get('/', [DashboardController::class, 'home'])->name('home');
+
+Route::post('/login', [AuthenticatedSessionController::class, 'store'])->name('login');
 
 Route::get('/dashboard', function () {
     return view('home');
