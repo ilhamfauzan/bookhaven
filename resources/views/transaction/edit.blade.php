@@ -30,7 +30,7 @@
                             <label for="transaction_status" class="block text-sm font-medium text-gray-700">Transaction Status</label>
                             <select id="transaction_status" name="transaction_status" class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                 <option value="Processing" @if($transaction->transaction_status == 'Processing') selected @endif>Processing</option>
-                                <option value="Shipped" @if($transaction->transaction_status == 'Shipped') selected @endif>Shipped</option>
+                                <option value="Cancelled" @if($transaction->transaction_status == 'Cancelled') selected @endif>Cancelled</option>
                                 <option value="Completed" @if($transaction->transaction_status == 'Completed') selected @endif>Completed</option>
                             </select>
                         </div>

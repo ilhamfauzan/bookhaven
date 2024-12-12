@@ -43,11 +43,10 @@
                         <form action="{{ route('checkout.index', $book->slug) }}" method="POST">
                             @csrf
                             @method('PUT')
-                                <a href="{{ route('checkout.index', $book->slug) }}">
-                                    <button type="submit" class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2">
-                                        Buy
-                                    </button>
-                                </a>
+                                <button type="submit" class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
+                                    {{ $book->stock == 0 ? 'disabled' : '' }}>
+                                        {{ $book->stock == 0 ? 'Out of stock' : 'Buy' }}
+                                </button>
                             @auth
                                 @if (Auth::user()->is_admin)
                                 <a href="{{ route('books.edit', $book->slug) }}" class="block mt-4 w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 text-center focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2">

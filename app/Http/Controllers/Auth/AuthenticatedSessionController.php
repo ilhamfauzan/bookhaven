@@ -25,7 +25,7 @@ class AuthenticatedSessionController extends Controller
      * Handle an incoming authentication request.
      */
     public function store(Request $request): RedirectResponse
-{
+    {
     // Validasi login (email atau username)
     $request->validate([
         'login' => ['required', 'string'],

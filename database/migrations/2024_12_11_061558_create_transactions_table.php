@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('book_id'); // Relasi dengan buku
             $table->integer('quantity'); // Jumlah buku yang dibeli
             $table->decimal('total_price', 10, 2); // Total harga transaksi
-            $table->enum('payment_status', ['Pending', 'Paid', 'Failed', 'Canceled', 'Refunded'])->default('Pending'); // Status pembayaran
-            $table->enum('transaction_status', ['Processing','Canceled', 'Completed'])->default('Processing'); // Status transaksi
+            $table->enum('payment_status', ['Pending', 'Paid', 'Failed', 'Cancelled', 'Refunded'])->default('Pending'); // Status pembayaran
+            $table->enum('transaction_status', ['Processing','Cancelled', 'Completed'])->default('Processing'); // Status transaksi
             $table->timestamp('transaction_date')->useCurrent(); // Tanggal transaksi
             $table->string('address'); // Alamat pengiriman
             $table->enum('shipping_status', ['Processing', 'Shipped', 'Delivered'])->nullable(); // Status pengiriman

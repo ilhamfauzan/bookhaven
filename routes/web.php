@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
     Route::put('/transaction/edit/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 
-
 });
 
 // books route public
