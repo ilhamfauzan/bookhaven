@@ -115,15 +115,7 @@ class BookController extends Controller
     return redirect()->route('catalog')->with('success', 'Book updated successfully!');
     }
 
-    // checkout
-    public function showCheckout($slug)
-    {
-        $book = Book::where('slug', $slug)->firstOrFail();
-        // $book->decrement('stock');
-
-        // return redirect()->route('catalog')->with('success', 'Book checked out successfully!');
-        return view('books.checkout', compact('book'));
-    }
+    
 
     public function destroy($slug)
 {

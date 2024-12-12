@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CheckoutController;
 
 // Route::get('/', function () {
 //     return view('welcome');
@@ -25,20 +27,28 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
+
     Route::get('/books/{slug}/edit', [BookController::class, 'edit'])->name('books.edit');
     Route::put('/books/{slug}', [BookController::class, 'update'])->name('books.update');
     Route::delete('/books/{slug}', [BookController::class, 'destroy'])->name('books.destroy');
+    
     // checkout
-    Route::put('/books/{slug}/checkout', [BookController::class, 'showCheckout'])->name('books.checkout');
+    Route::put('/checkout/{slug}', [CheckoutController::class, 'show'])->name('checkout.index');
+    // Route::post('/checkout/{slug}', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout/{slug}/success', [CheckoutController::class, 'store'])->name('checkout.store');
+
+    // transaction history
+    // Route::get('/transaction/{slug}', [TransactionController::class, 'show'])->name('transaction.show');
+
+    // laterr
+    Route::get('/transaction/history', [TransactionController::class, 'show'])->name('transaction.history');
 
 });
 
-// books route
+// books route public
 Route::get('/catalog', [BookController::class, 'showBooks'])->name('catalog');
 
 Route::post('/books', [BookController::class, 'store'])->name('books.store');
 Route::get('/books/{slug}', [BookController::class, 'showDetails'])->name('books.detail');
-// Route::get('/books/create', [BookController::class, 'create'])->name('books.create');
-// Route::resource('books', BookController::class)->only(['create']);
 
 require __DIR__.'/auth.php';

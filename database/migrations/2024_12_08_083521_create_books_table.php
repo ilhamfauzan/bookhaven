@@ -22,6 +22,7 @@ return new class extends Migration
             $table->integer('stock'); 
             $table->string('image_url')->nullable(); // URL Gambar Buku ???
             $table->timestamps(); 
+            $table->softDeletes();
         });
     }
 

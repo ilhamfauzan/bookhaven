@@ -33,7 +33,6 @@ class UserFactory extends Factory
             'is_admin' => random_int(0, 1),
             'phone' => fake()->phoneNumber('(+62) 8##-####-####'),
             'address' => fake()->address('id_ID'),
-            'postal_code' => fake()->postcode('id_ID'),
         ];
     }
 

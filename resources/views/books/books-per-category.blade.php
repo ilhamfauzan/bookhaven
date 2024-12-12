@@ -8,7 +8,7 @@
                 <img src="{{ asset('storage/' . $book->image_url) }}" alt="Cover image of {{ $book->title }}" class="w-full h-[280px] object-cover">
 
                 <div class="p-4 space-y-3">
-                    <h3 class="text-base font-semibold text-gray-800">{{ $book->title }}</h3>
+                    <h3 class="text-base font-semibold text-gray-800">{{ \Str::limit($book->title, 40) }}</h3>
                     <p class="text-sm text-gray-500">{{ $book->author }}</p>
                     <p class="text-sm text-gray-600">{{ \Str::limit($book->description, 50) }} <span class="text-indigo-600 hover:text-indigo-500 font-semibold text-sm">more &raquo;</span></p>
 

@@ -40,10 +40,10 @@
                             <span class="text-2xl font-bold text-gray-800">Rp{{ number_format($book->price, 0, ',', '.') }},-</span>
                             <p class="text-base text-gray-500">Stock: {{ $book->stock }}</p>
                         </div>
-                        <form action="{{ route('books.checkout', $book->slug) }}" method="POST">
+                        <form action="{{ route('checkout.index', $book->slug) }}" method="POST">
                             @csrf
                             @method('PUT')
-                                <a href="{{ route('books.checkout', $book->slug) }}">
+                                <a href="{{ route('checkout.index', $book->slug) }}">
                                     <button type="submit" class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2">
                                         Buy
                                     </button>

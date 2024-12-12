@@ -19,12 +19,15 @@
                         {{ __('Catalog') }}
                     </x-nav-link>
                     @auth
+                        <x-nav-link :href="route('transaction.history')" :active="request()->routeIs('transaction.history')">
+                            {{ __('Transaction History') }}
+                        </x-nav-link>
                         @if (Auth::user() && Auth::user()->is_admin)
                             <x-nav-link :href="route('books.create')" :active="request()->routeIs('books.create')">
                                 {{ __('Add Book') }}
                             </x-nav-link>
                         @else
-                            {{-- <p>{{ __('You are a user') }}</p> --}}
+                        
                         @endif
                     @endauth
                 </div>
