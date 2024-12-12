@@ -64,7 +64,7 @@ class CheckoutController extends Controller
             'phone' => $request->phone,
             'address' => $request->input('address'),
             'payment_method' => $request->input('payment_method'),
-            'shipping_status' => 'Pending',     
+            'shipping_status' => 'Processing',     
         ]);
 
         // Kurangi jumlah stok buku dengan quantity

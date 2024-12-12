@@ -27,6 +27,16 @@ class DatabaseSeeder extends Seeder
             'is_admin' => true,
         ]);
 
+        User::factory()->create([
+            'name' => 'izan',
+            'username' => 'izan',
+            'email' => 'i@zan.re',
+            'address' => 'Jl. Gatot Subroto No. 9, Jakarta Selatan, DKI Jakarta 12950',
+            'email_verified_at' => now(),
+            'password' => bcrypt('admin1234'),
+            'is_admin' => false,
+        ]);
+
         Book::factory()->create([
             'title' => 'Harry Potter and the Chamber of Secrets',
             'author' => 'J.K. Rowling',

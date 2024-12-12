@@ -22,7 +22,7 @@ return new class extends Migration
             $table->enum('transaction_status', ['Processing','Canceled', 'Completed'])->default('Processing'); // Status transaksi
             $table->timestamp('transaction_date')->useCurrent(); // Tanggal transaksi
             $table->string('address'); // Alamat pengiriman
-            $table->enum('shipping_status', ['Pending', 'Shipped', 'Delivered'])->nullable(); // Status pengiriman
+            $table->enum('shipping_status', ['Processing', 'Shipped', 'Delivered'])->nullable(); // Status pengiriman
             $table->string('payment_method'); // Metode pembayaran
             $table->string('payment_reference')->nullable(); // Referensi pembayaran
 

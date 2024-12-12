@@ -37,11 +37,13 @@ Route::middleware('auth')->group(function () {
     // Route::post('/checkout/{slug}', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::post('/checkout/{slug}/success', [CheckoutController::class, 'store'])->name('checkout.store');
 
-    // transaction history
-    // Route::get('/transaction/{slug}', [TransactionController::class, 'show'])->name('transaction.show');
-
     // laterr
     Route::get('/transaction/history', [TransactionController::class, 'show'])->name('transaction.history');
+
+    // Route untuk menampilkan halaman edit & memproses perubahan transaksi
+    Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
+    Route::put('/transaction/edit/{id}', [TransactionController::class, 'update'])->name('transaction.update');
+
 
 });
 
