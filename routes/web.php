@@ -34,8 +34,8 @@ Route::middleware('auth')->group(function () {
     
     // checkout
     Route::put('/checkout/{slug}', [CheckoutController::class, 'show'])->name('checkout.index');
-    // Route::post('/checkout/{slug}', [CheckoutController::class, 'store'])->name('checkout.store');
-    Route::post('/checkout/{slug}/success', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::post('/checkout/{slug}', [CheckoutController::class, 'store'])->name('checkout.store');
+    Route::get('/checkout/{slug}/success', [CheckoutController::class, 'success'])->name('checkout.success');
 
     // laterr
     Route::get('/transaction/history', [TransactionController::class, 'show'])->name('transaction.history');
@@ -44,12 +44,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
     Route::put('/transaction/edit/{id}', [TransactionController::class, 'update'])->name('transaction.update');
 
+    Route::get('/catalog', [BookController::class, 'showBooks'])->name('catalog');
+
+    Route::post('/books', [BookController::class, 'store'])->name('books.store');
+    Route::get('/books/{slug}', [BookController::class, 'showDetails'])->name('books.detail');
+
 });
 
 // books route public
-Route::get('/catalog', [BookController::class, 'showBooks'])->name('catalog');
+// Route::get('/catalog', [BookController::class, 'showBooks'])->name('catalog');
 
-Route::post('/books', [BookController::class, 'store'])->name('books.store');
-Route::get('/books/{slug}', [BookController::class, 'showDetails'])->name('books.detail');
+// Route::post('/books', [BookController::class, 'store'])->name('books.store');
+// Route::get('/books/{slug}', [BookController::class, 'showDetails'])->name('books.detail');
 
 require __DIR__.'/auth.php';

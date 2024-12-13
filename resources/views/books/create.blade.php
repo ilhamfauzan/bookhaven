@@ -9,6 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg">
                 <form method="POST" action="{{ route('books.store') }}" enctype="multipart/form-data">
+                    
                     @csrf
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6">
                         <!-- Card Image (left side) -->
@@ -90,3 +91,4 @@
         });
     </script>
 </x-app-layout>
+

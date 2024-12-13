@@ -26,13 +26,13 @@
                         <form action="{{ route('checkout.store', $book->slug) }}" method="POST">
                             @csrf <!-- Token CSRF untuk keamanan -->
                             <div class="grid grid-cols-1 gap-3">
-                                <!-- Input Fields -->
+                                <!-- Isnput Fields -->
                                 <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
                                 <input type="text" name="name" id="name" class="mt-1 block w-full border bg-gray-200 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm" value="{{ Auth::user()->name }}" required readonly>
-                                
+                                 
                                 <label for="phone" class="block text-sm font-medium text-gray-700">Phone Number</label>
                                 <input type="text" name="phone" id="phone" class=" block w-full border bg-gray-200 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm" value="{{ Auth::user()->phone }}" required readonly>
-                                
+                                 
                                 <label for="address" class="block text-sm font-medium text-gray-700">Shipping Address</label>
                                 <textarea name="address" id="address" rows="3" class="mt-1 block w-full border bg-gray-200 border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 sm:text-sm" required readonly>{{ Auth::user()->address }}</textarea>
                                 <div class="mb-4 text-gray-600 text-sm">
@@ -40,7 +40,7 @@
                                         If you want to change this detail, please go to <a href="{{ route('profile.edit') }}" class="text-indigo-500 hover:text-indigo-600 underline">Profile Settings</a>
                                     </p>
                                 </div>
-                                
+                                 
                                 <label for="payment_method" class="block text-sm font-medium text-gray-700">Payment Method</label>
                                 <select name="payment_method" id="payment_method" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                     <option value="">-- Choose Payment Method --</option>
