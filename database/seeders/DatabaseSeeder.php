@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Book;
+use App\Models\Transaction;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -28,7 +29,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'izan',
+            'name' => 'Ilham Fauzan',
             'username' => 'izan',
             'email' => 'i@zan.re',
             'address' => 'Jl. Gatot Subroto No. 9, Jakarta Selatan, DKI Jakarta 12950',
@@ -90,6 +91,32 @@ class DatabaseSeeder extends Seeder
             'price' => 100000,
             'stock' => 10,
             'image_url' => 'books/seed/harry-potter-and-the-order-of-the-phoenix.jpg',
+        ]);
+
+        Transaction::factory()->create([
+            'user_id' => 1,
+            'book_id' => 1,
+            'quantity' => 1,
+            'total_price' => 100000,
+            'payment_status' => 'Paid',
+            'transaction_status' => 'Processing',
+            'transaction_date' => now(),
+            'address' => 'Jl. Jendral Sudirman No. 1',
+            'shipping_status' => 'Delivered',
+            'payment_method' => 'QRIS',
+        ]);
+
+        Transaction::factory()->create([
+            'user_id' => 2,
+            'book_id' => 3,
+            'quantity' => 1,
+            'total_price' => 100000,
+            'payment_status' => 'Paid',
+            'transaction_status' => 'Processing',
+            'transaction_date' => now(),
+            'address' => 'Jl. Jendral Sudirman No. 1',
+            'shipping_status' => 'Delivered',
+            'payment_method' => 'QRIS',
         ]);
 
 
