@@ -131,7 +131,7 @@ class BookController extends Controller
 
     $book->delete(); // Hapus buku dari database
 
-    return redirect()->route('catalog')->with('successRed', 'Book deleted successfully!');
+    return redirect()->route('catalog')->with('success', 'Book deleted successfully!');
 }
 
 

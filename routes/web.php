@@ -40,8 +40,7 @@ Route::middleware('auth')->group(function () {
 
     // history
     Route::get('/transaction/history', [TransactionController::class, 'show'])->name('transaction.history');
-    Route::get('/transaction/cancel/{id}', [TransactionController::class, 'cancel'])->name('transaction.cancel');
-
+    Route::post('/transaction/cancel/{id}', [TransactionController::class, 'cancel'])->name('transaction.cancel');
 
     // edit history
     Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');

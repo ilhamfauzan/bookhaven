@@ -7,6 +7,7 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        @include('components.notifier')
             
         @if (count($books) == 0)
             <div class="text-center p-12">

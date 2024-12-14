@@ -43,10 +43,26 @@
                         <form action="{{ route('checkout.index', $book->slug) }}" method="POST">
                             @csrf
                             @method('PUT')
-                                <button type="submit" class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
+                                @guest
+                                    <button type="submit" class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
                                     {{ $book->stock == 0 ? 'disabled' : '' }}>
                                         {{ $book->stock == 0 ? 'Out of stock' : 'Buy' }}
-                                </button>
+                                    </button>
+                                    <p class="text-xs text-gray-600 mt-3"> * You'll need to login to checkout </p>
+                                @endguest
+                                @auth
+                                    @if (Auth::user()->phone == null || Auth::user()->address == null)
+                                    <a href="{{ route('profile.edit') }}" class="mt-4 w-full bg-yellow-500 text-white py-2 px-4 rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2">
+                                        Complete Profile
+                                    </a>
+                                    <p class="text-xs text-gray-600 mt-3">* Please fill your phone number and address in profile before checkout</p>
+                                    @else
+                                    <button type="submit" class="w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2"
+                                        {{ $book->stock == 0 ? 'disabled' : '' }}>
+                                            {{ $book->stock == 0 ? 'Out of stock' : 'Buy' }}
+                                    </button>
+                                    @endif
+                                @endauth
                             @auth
                                 @if (Auth::user()->is_admin)
                                 <a href="{{ route('books.edit', $book->slug) }}" class="block mt-4 w-full bg-gray-800 text-white py-2 px-4 rounded-md hover:bg-gray-700 text-center focus:outline-none focus:ring-2 focus:ring-gray-700 focus:ring-offset-2">

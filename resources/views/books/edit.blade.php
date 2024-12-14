@@ -18,7 +18,7 @@
                             <label for="image_url" class=" justify-center flex block text-lg font-medium text-gray-700 mb-5">Book Cover</label>
                             <div class="sm:w-3/3 flex justify-center mb-8 sm:mb-0">
                                 <!-- Jika sudah ada gambar, tampilkan gambar yang ada -->
-                                <img src="{{ asset('storage/' . $book->image_url) }}" alt="Cover image of {{ $book->title }}" class="w-[380px] h-[400px] sm:w-64 object-cover rounded-lg shadow-md">
+                                <img id="image_preview" src="{{ $book->image_url ? asset('storage/' . $book->image_url) : 'https://placehold.co/170x320' }}" alt="Cover image of {{ $book->title }}" class="w-[380px] h-[400px] sm:w-64 object-cover rounded-lg shadow-md">
                             </div>
                             <input type="file" name="image_url" id="image_url" class="mt-5 mx-auto justify-center flex block w-2/3 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" accept="image/*" onchange="previewImage(event)" style="padding: 0.5rem; border-radius: 0.5rem; border: 1px solid #e5e7eb; background-color: #f9fafb; color: #6b7280; transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform; transition-duration: 150ms; transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);">
                         </div>
@@ -82,15 +82,15 @@
             const preview = document.getElementById('image_preview');
             
             if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                preview.src = e.target.result;
-                preview.classList.remove('hidden');
-            }
-            reader.readAsDataURL(file);
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    preview.src = e.target.result;
+                    preview.classList.remove('hidden');
+                }
+                reader.readAsDataURL(file);
             } else {
-            preview.src = '{{ $book->image_url ? asset('storage/' . $book->image_url) : 'https://placehold.co/170x320' }}';
-            preview.classList.remove('hidden');
+                preview.src = '{{ $book->image_url ? asset('storage/' . $book->image_url) : 'https://placehold.co/170x320' }}';
+                preview.classList.remove('hidden');
             }
         }
 
@@ -98,9 +98,9 @@
             const preview = document.getElementById('image_preview');
             if (!preview.src) {
                 preview.src = '{{ $book->image_url ? asset('storage/' . $book->image_url) : 'https://placehold.co/170x320' }}';
-            preview.classList.remove('hidden');
+                preview.classList.remove('hidden');
             }
         });
-
-</script>
+    </script>
 </x-app-layout>
+

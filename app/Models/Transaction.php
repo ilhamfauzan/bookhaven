@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\Book;
 
 class Transaction extends Model
 {
@@ -12,6 +13,8 @@ class Transaction extends Model
     protected $fillable = [
         'user_id', 
         'book_id', 
+        'book_title',
+        'book_image_url',
         'quantity', 
         'total_price', 
         'payment_status', 
@@ -22,6 +25,18 @@ class Transaction extends Model
         'payment_method',
         'payment_reference',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($transaction) {
+            if ($book = Book::withTrashed()->find($transaction->book_id)) {
+                $transaction->book_title = $book->title;
+                $transaction->book_image_url = $book->image_url;
+            }
+        });
+    }
 
     // Relasi dengan User
     public function user()

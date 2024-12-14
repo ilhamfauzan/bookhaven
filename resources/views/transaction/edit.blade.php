@@ -20,9 +20,14 @@
 
                             <div class="flex justify-between text-sm text-gray-600">
                                 <p><strong>Book Cover:</strong></p>
-                                <img src="{{ asset('storage/' . $transaction->book->image_url) }}" alt="Cover image of {{ $transaction->book->title }}" class="w-24 h-auto object-cover rounded-lg shadow-md">
+                                @if($transaction->book_image_url)
+                                    <img src="{{ asset('storage/' . $transaction->book_image_url) }}" alt="Cover image of {{ $transaction->book_title }}" class="w-24 h-auto object-cover rounded-lg shadow-md">
+                                @else
+                                    <div class="w-24 h-32 bg-gray-200 flex items-center justify-center rounded-lg shadow-md">
+                                        <span class="text-gray-500 text-xs">No image</span>
+                                    </div>
+                                @endif
                             </div>
-                            
 
                             <div class="flex justify-between text-sm text-gray-600">
                                 <p><strong>User Name:</strong></p>
@@ -31,12 +36,12 @@
 
                             <div class="flex justify-between text-sm text-gray-600">
                                 <p><strong>Book Title:</strong></p>
-                                <p>{{ $transaction->book->title }}</p>
+                                <p>{{ $transaction->book_title }}</p>
                             </div>
 
                             <div class="flex justify-between text-sm text-gray-600">
                                 <p><strong>Book Price:</strong></p>
-                                <p>Rp{{ number_format($transaction->book->price, 0, ',', '.') }}</p>
+                                <p>Rp{{ number_format($transaction->total_price / $transaction->quantity, 0, ',', '.') }}</p>
                             </div>
 
                             <div class="flex justify-between text-sm text-gray-600">
@@ -46,7 +51,6 @@
 
                             <div class="flex justify-between text-sm text-gray-600">
                                 <p><strong>Total Price:</strong></p>
-                                {{-- <p>{{ $transaction->total_price }}</p> --}}
                                 <p>Rp{{ number_format($transaction->total_price, 0, ',', '.') }}</p>
                             </div>
 
@@ -65,47 +69,53 @@
                     <div class="w-1/2 p-6">
                         <h1 class="text-2xl font-bold text-gray-900">Update Transaction</h1>
 
-                        <form method="POST" action="{{ route('transaction.update', $transaction->id) }}">
-                            @csrf
-                            @method('PUT')
-
-                            <div class="space-y-6 mt-8">
-                                <div>
-                                    <label for="payment_status" class="block text-sm font-medium text-gray-700">Payment Status</label>
-                                    <select id="payment_status" name="payment_status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="Pending" @if($transaction->payment_status == 'Pending') selected @endif>Pending</option>
-                                        <option value="Paid" @if($transaction->payment_status == 'Paid') selected @endif>Paid</option>
-                                        <option value="Failed" @if($transaction->payment_status == 'Failed') selected @endif>Failed</option>
-                                        <option value="Cancelled" @if($transaction->payment_status == 'Cancelled') selected @endif>Cancelled</option>
-                                        <option value="Refunded" @if($transaction->payment_status == 'Refunded') selected @endif>Refunded</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label for="transaction_status" class="block text-sm font-medium text-gray-700">Transaction Status</label>
-                                    <select id="transaction_status" name="transaction_status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="Processing" @if($transaction->transaction_status == 'Processing') selected @endif>Processing</option>
-                                        <option value="Cancelled" @if($transaction->transaction_status == 'Cancelled') selected @endif>Cancelled</option>
-                                        <option value="Completed" @if($transaction->transaction_status == 'Completed') selected @endif>Completed</option>
-                                    </select>
-                                </div>
-
-                                <div>
-                                    <label for="shipping_status" class="block text-sm font-medium text-gray-700">Shipping Status</label>
-                                    <select id="shipping_status" name="shipping_status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-                                        <option value="Processing" @if($transaction->shipping_status == 'Processing') selected @endif>Processing</option>
-                                        <option value="Shipping" @if($transaction->shipping_status == 'Shipping') selected @endif>Shipping</option>
-                                        <option value="Delivered" @if($transaction->shipping_status == 'Delivered') selected @endif>Delivered</option>
-                                    </select>
-                                </div>
+                        @if($transaction->transaction_status == 'Cancelled')
+                            <div class="mt-6 bg-yellow-50 border border-yellow-400 p-4 rounded-lg">
+                                <p class="text-yellow-700">This transaction has been cancelled.</p>
                             </div>
+                        @else
+                            <form method="POST" action="{{ route('transaction.update', $transaction->id) }}">
+                                @csrf
+                                @method('PUT')
 
-                            <div class="mt-6">
-                                <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                    Update Transaction
-                                </button>
-                            </div>
-                        </form>
+                                <div class="space-y-6 mt-8">
+                                    <div>
+                                        <label for="payment_status" class="block text-sm font-medium text-gray-700">Payment Status</label>
+                                        <select id="payment_status" name="payment_status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            <option value="Pending" @if($transaction->payment_status == 'Pending') selected @endif>Pending</option>
+                                            <option value="Paid" @if($transaction->payment_status == 'Paid') selected @endif>Paid</option>
+                                            <option value="Failed" @if($transaction->payment_status == 'Failed') selected @endif>Failed</option>
+                                            <option value="Cancelled" @if($transaction->payment_status == 'Cancelled') selected @endif>Cancelled</option>
+                                            <option value="Refunded" @if($transaction->payment_status == 'Refunded') selected @endif>Refunded</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label for="transaction_status" class="block text-sm font-medium text-gray-700">Transaction Status</label>
+                                        <select id="transaction_status" name="transaction_status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            <option value="Processing" @if($transaction->transaction_status == 'Processing') selected @endif>Processing</option>
+                                            <option value="Cancelled" @if($transaction->transaction_status == 'Cancelled') selected @endif>Cancelled</option>
+                                            <option value="Completed" @if($transaction->transaction_status == 'Completed') selected @endif>Completed</option>
+                                        </select>
+                                    </div>
+
+                                    <div>
+                                        <label for="shipping_status" class="block text-sm font-medium text-gray-700">Shipping Status</label>
+                                        <select id="shipping_status" name="shipping_status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+                                            <option value="Processing" @if($transaction->shipping_status == 'Processing') selected @endif>Processing</option>
+                                            <option value="Shipping" @if($transaction->shipping_status == 'Shipping') selected @endif>Shipping</option>
+                                            <option value="Delivered" @if($transaction->shipping_status == 'Delivered') selected @endif>Delivered</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="mt-6">
+                                    <button type="submit" class="inline-flex items-center px-4 py-2 bg-indigo-600 text-white font-semibold rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Update Transaction
+                                    </button>
+                                </div>
+                            </form>
+                        @endif
 
                         <div class="mt-6">
                             <a href="{{ route('transaction.history') }}" class="text-indigo-600 hover:text-indigo-500"> &laquo; Back to Transaction History</a>
@@ -116,4 +126,3 @@
         </div>
     </div>
 </x-app-layout>
-

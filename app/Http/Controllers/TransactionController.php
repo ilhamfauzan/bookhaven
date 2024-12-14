@@ -4,21 +4,40 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Transaction;
+use App\Models\Book;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TransactionController extends Controller
 {
     //
+    // public function show()
+    // {
+    //     if (Auth::user()->is_admin) {
+    //         $transactions = Transaction::all();
+    //     } else {
+    //         $transactions = Transaction::withTrashed()
+    //             ->with(['book' => function ($query) {
+    //                 $query->withTrashed();
+    //             }])
+    //             ->where('user_id', Auth::user()->id)
+    //             ->get();
+    //     }
+    //     // dd($transactions);
+    //     return view('transaction.history', compact('transactions'));
+    // }
+
     public function show()
-    {
-        if (Auth::user()->is_admin) {
-            $transactions = Transaction::all();
-        } else {
-            $transactions = Transaction::where('user_id', Auth::user()->id)->get();
-        }
-        // dd($transactions);
-        return view('transaction.history', compact('transactions'));
+{
+    if (Auth::user()->is_admin) {
+        $transactions = Transaction::with('user')->get();
+    } else {
+        $transactions = Transaction::with('user')
+            ->where('user_id', Auth::user()->id)
+            ->get();
     }
+    return view('transaction.history', compact('transactions'));
+}
 
     public function edit($id)
     {
@@ -62,12 +81,44 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::findOrFail($id);
 
-        // Update transaksi
-        $transaction->update([
-            'transaction_status' => 'Cancelled',
-        ]);
+        // Pastikan user hanya bisa membatalkan transaksi mereka sendiri
+        if ($transaction->user_id !== Auth::user()->id) {
+            return redirect()->route('transaction.history')
+                ->with('error', 'You are not authorized to cancel this transaction');
+        }
 
-        // Redirect ke halaman riwayat transaksi setelah update
-        return redirect()->route('transaction.history')->with('success', 'Transaction cancelled successfully');
+        // Pastikan transaksi masih dalam status Processing
+        if ($transaction->transaction_status !== 'Processing') {
+            return redirect()->route('transaction.history')
+                ->with('error', 'Only transactions in Processing status can be cancelled');
+        }
+
+        try {
+            DB::beginTransaction();
+
+            // Update transaksi
+            $transaction->update([
+                'transaction_status' => 'Cancelled',
+                'payment_status' => 'Cancelled',
+                'shipping_status' => 'Processing'
+            ]);
+
+            // Kembalikan stok buku
+            $book = Book::withTrashed()->find($transaction->book_id);
+            if ($book) {
+                $book->update([
+                    'stock' => $book->stock + $transaction->quantity
+                ]);
+            }
+
+            DB::commit();
+
+            return redirect()->route('transaction.history')
+                ->with('success', 'Transaction cancelled successfully.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->route('transaction.history')
+                ->with('error', 'Failed to cancel transaction. Please try again.');
+        }
     }
 }
