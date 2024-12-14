@@ -15,9 +15,6 @@
                         <span class="text-sm text-gray-500">Stock: {{ $book->stock }}</span>
                     </div>
                     
-                    {{-- <div class="mt-2">
-                        
-                    </div> --}}
                 </div>
             </a>
         @empty

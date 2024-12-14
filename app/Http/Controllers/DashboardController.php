@@ -18,8 +18,8 @@ class DashboardController extends Controller
     }
     public function home()
     {
-        
-        return view('home');
+        $books = Book::inRandomOrder()->take(5)->get();
+        return view('home', compact('books'));
     }
 
     public function getRandomBooks()
