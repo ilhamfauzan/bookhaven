@@ -10,7 +10,13 @@
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <h1 class="text-2xl font-bold text-gray-900">Order Summary</h1>
+                    <div class="flex items-center">
+                        <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+
+                        <h1 class="text-2xl font-bold text-gray-900 ml-2">Order Successful!</h1>
+                    </div>
 
                     <div class="mt-4">
                         <p class="text-lg text-gray-600">You have placed an order for:</p>
@@ -19,11 +25,14 @@
                         </ul>
 
                         <p class="text-lg text-gray-600 mt-4">Total Price: Rp{{ number_format($book->price, 0, ',', '.') }}</p>
+
+                        {{-- <p class="text-lg text-gray-600 mt-4">Transaction ID: {{ $transaction->id }}</p>
+                        <p class="text-lg text-gray-600 mt-4">Transaction Status: {{ $transaction->payment_status }}</p>
+                        <p class="text-lg text-gray-600 mt-4">Shipping Status: {{ $transaction->shipping_status }}</p> --}}
                     </div>
 
                     <div class="mt-8">
-                        {{-- <a href="{{ route('transaction.history') }}" class="text-indigo-600 hover:text-indigo-500 font-semibold"> --}}
-                        <a href="#" class="text-indigo-600 hover:text-indigo-500 font-semibold">
+                        <a href="{{ route('transaction.history') }}" class="text-indigo-600 hover:text-indigo-500 font-semibold">
                             View Order History
                         </a>
                     </div>
@@ -32,5 +41,6 @@
         </div>
     </div>
 </x-app-layout>
+
 
 

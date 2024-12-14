@@ -40,7 +40,13 @@
                                         If you want to change this detail, please go to <a href="{{ route('profile.edit') }}" class="text-indigo-500 hover:text-indigo-600 underline">Profile Settings</a>
                                     </p>
                                 </div>
-                                 
+
+                                <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
+                                <input type="number" name="quantity" id="quantity" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="1" min="1" max="{{ $book->stock }}" required>
+                                <p class="mb-4 text-sm text-gray-600">
+                                    Available Stock: {{ $book->stock }}
+                                </p>
+
                                 <label for="payment_method" class="block text-sm font-medium text-gray-700">Payment Method</label>
                                 <select name="payment_method" id="payment_method" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
                                     <option value="">-- Choose Payment Method --</option>
