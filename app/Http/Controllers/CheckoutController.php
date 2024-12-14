@@ -55,8 +55,7 @@ class CheckoutController extends Controller
 
         $book->decrement('stock', $quantity);
 
-        return redirect()->route('checkout.success', ['slug' => $slug])
-                        ->with(['book' => $book, 'transaction' => $transaction]);
+        return view('checkout.store', compact('book', 'transaction'));
     }
 
     public function success($slug)

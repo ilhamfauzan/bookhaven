@@ -18,24 +18,14 @@
 
                     <div class="mt-4">
                         <p class="text-lg text-gray-600 mt-4 flex items-center justify-center mb-5">You have placed an order for:</p>
-                        <p class="list-disc pl-4 flex items-center justify-center text-2xl"> {{ $book->title }}</p>
+                        <p class="list-disc pl-4 flex items-center justify-center text-2xl">{{ $book->title }}</p>
 
-                        <p class="text-lg text-gray-600 flex items-center justify-center">Rp{{ number_format($book->price, 0, ',', '.') }}</p>
+                        <p class="text-lg text-gray-600 flex items-center justify-center">Rp{{ number_format($transaction->total_price, 0, ',', '.') }} via {{ $transaction->payment_method }}</p>
                         <a href="{{ route('transaction.history') }}" class="text-indigo-600 hover:text-indigo-500 font-semibold  flex items-center justify-center mt-5"> View Order History </a>
-
-
-                        {{-- <p class="text-lg text-gray-600 mt-4">Transaction ID: {{ $transaction->id }}</p>
-                        <p class="text-lg text-gray-600 mt-4">Transaction Status: {{ $transaction->payment_status }}</p>
-                        <p class="text-lg text-gray-600 mt-4">Shipping Status: {{ $transaction->shipping_status }}</p> --}}
                     </div>
 
-                    <div class="mt-8">
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </x-app-layout>
-
-
-
