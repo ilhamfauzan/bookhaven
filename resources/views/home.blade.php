@@ -8,6 +8,7 @@
                         <main class="mt-10 mx-auto max-w-7xl px-4 sm:mt-12 sm:px-6 lg:mt-16 lg:px-8 xl:mt-20">
                             <div class="text-center">
                                 <h1 class="text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl">
+                                    <x-application-logo class="h-20 w-50 mx-auto" />
                                     <span class="block">Welcome to</span>
                                     <span class="block text-indigo-600">Book Haven</span>
                                 </h1>
