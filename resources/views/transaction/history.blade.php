@@ -15,7 +15,7 @@
             @else
             <div class="bg-white shadow-md rounded-lg px-4 py-6 mx-auto">
                 <div class="overflow-x-auto">
-                    <table class="max-w-7xl mx-auto divide-y divide-gray-200">
+                    <table class="max-w-auto mx-auto divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
                                 <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -38,20 +38,21 @@
                                 <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Payment Status
                                 </th>
-                                {{-- <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                    Transaction Status
-                                </th> --}}
                                 <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Shipping Status
+                                </th>
+                                @if(!auth()->user()->is_admin)
+                                <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Transaction Status
                                 </th>
                                 <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Date
                                 </th>
-                                @if(auth()->user()->is_admin)
-                                    <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                                        Actions
-                                    </th>
                                 @endif
+                                <th scope="col" class="px-3 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                                
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
@@ -121,17 +122,6 @@
                                                 </span>
                                         @endswitch
                                     </td>
-                                    {{-- <td class="px-3 py-4 whitespace-nowrap">
-                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
-                                            @if($transaction->transaction_status === 'Processing')
-                                                Processing
-                                            @elseif($transaction->transaction_status === 'Cancelled')
-                                                Shipped
-                                            @else
-                                                Completed
-                                            @endif
-                                        </span>
-                                    </td> --}}
                                     <td class="px-3 py-4 whitespace-nowrap">
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
                                             @if($transaction->shipping_status === 'Processing')
@@ -147,12 +137,33 @@
                                             @endif
                                         </span>
                                     </td>
+                                    @if(!auth()->user()->is_admin)
+                                    <td class="px-3 py-4 whitespace-nowrap">
+                                        <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-gray-100 text-gray-800">
+                                            @if($transaction->transaction_status === 'Processing')
+                                            Processing
+                                            @elseif($transaction->transaction_status === 'Cancelled')
+                                            Shipped
+                                            @else
+                                            Completed
+                                            @endif
+                                        </span>
+                                    </td>
+                                    @endif
                                     <td class="px-3 py-4 whitespace-nowrap">
                                         {{ \Carbon\Carbon::parse($transaction->transaction_date)->format('d M Y') }}
                                     </td>
                                     @if(auth()->user()->is_admin)
                                         <td class="px-3 py-4 whitespace-nowrap">
                                             <a href="{{ route('transaction.edit', $transaction->id) }}" class="text-blue-500 hover:underline">Edit</a>
+                                        </td>
+                                    @else
+                                        <td class="px-3 py-4 whitespace-nowrap">
+                                            <form action="{{ route('transaction.cancel', $transaction->id) }}" method="post" onsubmit="return confirm('Are you sure you want to cancel this transaction?')";>
+                                                @csrf
+                                                {{-- @method('PUT'); --}}
+                                                <button type="submit" class="text-red-500 hover:underline">Cancel</button>
+                                            </form>
                                         </td>
                                     @endif
                                 </tr>

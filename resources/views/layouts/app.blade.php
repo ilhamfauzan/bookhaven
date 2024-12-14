@@ -26,6 +26,8 @@
                     </div>
                 </header>
             @endisset
+            
+            @include('components.notifier')
 
             <!-- Page Content -->
             <main>

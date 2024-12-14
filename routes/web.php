@@ -36,9 +36,12 @@ Route::middleware('auth')->group(function () {
     Route::put('/checkout/{slug}', [CheckoutController::class, 'show'])->name('checkout.index');
     Route::post('/checkout/{slug}', [CheckoutController::class, 'store'])->name('checkout.store');
     Route::get('/checkout/{slug}/success', [CheckoutController::class, 'success'])->name('checkout.success');
+    Route::put('/checkout/{slug}/cancel', [CheckoutController::class, 'cancel'])->name('checkout.cancel');
 
     // history
     Route::get('/transaction/history', [TransactionController::class, 'show'])->name('transaction.history');
+    Route::get('/transaction/cancel/{id}', [TransactionController::class, 'cancel'])->name('transaction.cancel');
+
 
     // edit history
     Route::get('/transaction/edit/{id}', [TransactionController::class, 'edit'])->name('transaction.edit');
