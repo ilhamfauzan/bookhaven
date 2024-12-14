@@ -41,11 +41,29 @@
                                     </p>
                                 </div>
 
+                                <hr>
+
                                 <label for="quantity" class="block text-sm font-medium text-gray-700">Quantity</label>
                                 <input type="number" name="quantity" id="quantity" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" value="1" min="1" max="{{ $book->stock }}" required>
                                 <p class="mb-4 text-sm text-gray-600">
                                     Available Stock: {{ $book->stock }}
                                 </p>
+
+                                <div class="flex justify-between text-sm text-gray-600 mb-4">
+                                    <p class="text-xl">Total Price</p>
+                                    <p class="font-semibold text-2xl" id="total_price">Rp{{ number_format($book->price, 0, ',', '.') }}</p>
+                                </div>
+
+                                <script>
+                                    document.getElementById('quantity').addEventListener('input', function() {
+                                        let quantity = this.value;
+                                        let price = {{ $book->price }};
+                                        let totalPrice = price * quantity;
+                                        document.getElementById('total_price').innerHTML = 'Rp' + new Intl.NumberFormat('id-ID', { minimumFractionDigits: 0 }).format(totalPrice);
+                                    });
+                                </script>
+
+                                <hr>
 
                                 <label for="payment_method" class="block text-sm font-medium text-gray-700">Payment Method</label>
                                 <select name="payment_method" id="payment_method" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
