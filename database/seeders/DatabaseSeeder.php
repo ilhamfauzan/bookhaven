@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Admin',
             'username' => 'admin',
+            'phone' => '08123456789',
             'email' => 'admin@example.com',
             'address' => 'Jl. Jendral Sudirman No. 1',
             'email_verified_at' => now(),
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Ilham Fauzan',
             'username' => 'izan',
+            'phone' => '0851678912',
             'email' => 'i@zan.re',
             'address' => 'Jl. Gatot Subroto No. 9, Jakarta Selatan, DKI Jakarta 12950',
             'email_verified_at' => now(),

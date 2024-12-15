@@ -32,7 +32,7 @@ class ProfileController extends Controller
             $request->user()->email_verified_at = null;
         }
 
-        $request->user()->phone = $request->input('phone');
+        $request->user()->phone = preg_replace('/\D/', '', $request->input('phone'));
         $request->user()->address = $request->input('address');
         $request->user()->username = $request->input('username');
 
