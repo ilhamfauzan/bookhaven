@@ -60,7 +60,7 @@ class TransactionController extends Controller
         $validated = $request->validate([
             'payment_status' => 'required|in:Pending,Paid,Failed,Cancelled,Refunded',
             'transaction_status' => 'required|in:Processing,Cancelled,Completed',
-            'shipping_status' => 'required|in:Processing,Shipping,Delivered',
+            'shipping_status' => 'required|in:Processing,Shipped,Delivered',
         ]);
 
         // Update transaksi
@@ -70,7 +70,12 @@ class TransactionController extends Controller
             'shipping_status' => $request->shipping_status,
         ]);
 
-        // dd($transaction);
+        // Jika status transaksi diupdate menjadi dibatalkan, maka kembalikan stok buku
+        if ($request->transaction_status == 'Cancelled') {
+            $book = Book::withTrashed()->findOrFail($transaction->book_id);
+            $book->stock += $transaction->quantity;
+            $book->save();
+        }
 
         // Redirect ke halaman riwayat transaksi setelah update
         return redirect()->route('transaction.history')->with('success', 'Transaction updated successfully');

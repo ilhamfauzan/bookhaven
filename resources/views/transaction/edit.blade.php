@@ -103,7 +103,7 @@
                                         <label for="shipping_status" class="block text-sm font-medium text-gray-700">Shipping Status</label>
                                         <select id="shipping_status" name="shipping_status" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                                             <option value="Processing" @if($transaction->shipping_status == 'Processing') selected @endif>Processing</option>
-                                            <option value="Shipping" @if($transaction->shipping_status == 'Shipping') selected @endif>Shipping</option>
+                                            <option value="Shipped" @if($transaction->shipping_status == 'Shipped') selected @endif>Shipped</option>
                                             <option value="Delivered" @if($transaction->shipping_status == 'Delivered') selected @endif>Delivered</option>
                                         </select>
                                     </div>

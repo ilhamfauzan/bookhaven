@@ -57,6 +57,11 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
+                            @php
+                                $cancelledTransactions = $transactions->where('transaction_status', 'Cancelled');
+                                $transactions = $transactions->where('transaction_status', '!=', 'Cancelled')->sortByDesc('created_at');
+                                $transactions = $transactions->merge($cancelledTransactions);
+                            @endphp
                             @foreach($transactions as $transaction)
                                 <tr>
                                     <td class="px-2 py-4 whitespace-nowrap">

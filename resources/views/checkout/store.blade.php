@@ -18,7 +18,7 @@
 
                     <div class="mt-4">
                         <p class="text-lg text-gray-600 mt-4 flex items-center justify-center mb-5">You have placed an order for:</p>
-                        <p class="list-disc pl-4 flex items-center justify-center text-2xl">{{ $book->title }}</p>
+                        <p class="flex items-center justify-center text-center text-2xl">{{ $book->title }}</p>
 
                         <p class="text-lg text-gray-600 flex items-center justify-center">Rp{{ number_format($transaction->total_price, 0, ',', '.') }} via {{ $transaction->payment_method }}</p>
                         <a href="{{ route('transaction.history') }}" class="text-indigo-600 hover:text-indigo-500 font-semibold  flex items-center justify-center mt-5"> View Order History </a>

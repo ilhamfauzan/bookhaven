@@ -31,12 +31,17 @@ class CheckoutController extends Controller
 
         $book = Book::where('slug', $slug)->firstOrFail();
         
+        
         if (!$book) {
             return redirect()->route('checkout.index', $slug)
             ->with('error', 'Buku tidak ditemukan');
         }
         
         $quantity = $request->quantity;
+        if ($book->stock < $quantity) {
+            return redirect()->route('catalog')
+                ->with('error', 'Insufficient stock for the requested quantity.');
+        }
         $totalPrice = $book->price * $quantity;
 
         $transaction = Transaction::create([
