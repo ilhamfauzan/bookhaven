@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         User::factory()->create([
             'name' => 'Ilham Fauzan',
             'username' => 'izan',
-            'phone' => '0851678912',
+            'phone' => '08516789123',
             'email' => 'i@zan.re',
             'address' => 'Jl. Gatot Subroto No. 9, Jakarta Selatan, DKI Jakarta 12950',
             'email_verified_at' => now(),
